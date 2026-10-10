@@ -568,6 +568,20 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .gtabs { margin: 0 0 12px; }
 .pair-k { margin-bottom: 10px; }
 .wbody .back { margin-bottom: 10px; }
+/* seol info */
+.info { padding-bottom: 6px; }
+.info-tag { display: flex; justify-content: space-between; margin: 0 0 12px; font: 400 10px var(--mono); letter-spacing: .16em; color: var(--mid); }
+.info-tag span:last-child { color: var(--ink); letter-spacing: .08em; }
+.info-dl { display: grid; grid-template-columns: 84px 1fr; margin: 0 0 20px; border-top: 1px solid var(--ink); }
+.info-dl dt, .info-dl dd { margin: 0; padding: 9px 0; border-bottom: 1px solid var(--hair); }
+.info-dl dt { font: 400 10px/1.9 var(--mono); letter-spacing: .14em; color: var(--mid); }
+.info-dl dd { font: 400 13.5px/1.6 var(--ko); }
+.info-b { display: grid; grid-template-columns: 84px 1fr; padding: 12px 0; border-bottom: 1px solid var(--hair); }
+.info-b:last-child { border-bottom: 0; }
+.info-b h4 { margin: 0; font: 400 10px/1.9 var(--mono); letter-spacing: .14em; color: var(--ink); }
+.info-b h4 i { display: block; font-style: normal; color: var(--mid); }
+.info-b p { margin: 0; font: 300 13.5px/1.8 var(--ko); }
+@media (max-width: 520px) { .info-dl, .info-b { grid-template-columns: 64px 1fr; } }
 /* chat with lia — the real AI chat (Cloudflare worker) embedded */
 .chat { display: flex; flex-direction: column; height: min(60vh, 520px); }
 .chat .who { display: flex; align-items: center; gap: 10px; padding: 0 0 12px; border-bottom: 1px solid var(--hair); }
@@ -750,12 +764,36 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     var img = SITE.data.characters && SITE.data.characters[1] && SITE.data.characters[1].thumb;
     render('', '<div class="chat"><div class="who">' + (img ? '<img src="' + img + '" alt="">' : '') + '<div><b>Lia</b><small>SEOLJISU · AQUA GUIDE</small></div></div><iframe src="' + LIA_URL + '" title="리아와 채팅"></iframe></div>', null);
   }
+  // ======== Seol → INFO ========
+  // 여기 내용만 고치면 info 창에 그대로 나와요. 줄바꿈은 <br>로 쓰면 돼요.
+  var INFO = {
+    tag: 'SEOL',
+    head: 'ARCH SYNDROME ♡',
+    rows: [
+      ['NAME', 'SEOL'],
+      ['STYLE', 'ONLY · 동담불가'],
+      ['TL', '메인 기준 최대 1T2D'],
+      ['AGE', '여기에 적어주세요'],
+      ['SINCE', '여기에 적어주세요']
+    ],
+    blocks: [
+      ['ABOUT', '자기소개를 여기에 적어주세요.'],
+      ['PLEASE', '상호 직멘 및 유입까지 배려 원해요.'],
+      ['NO', '지뢰나 피해줬으면 하는 것을 여기에 적어주세요.'],
+      ['CONTACT', '연락 방법을 여기에 적어주세요.']
+    ]
+  };
+  function infoView() {
+    return '<div class="info"><p class="info-tag"><span>' + INFO.tag + '</span><span>' + INFO.head + '</span></p>' +
+      '<dl class="info-dl">' + INFO.rows.map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>'; }).join('') + '</dl>' +
+      INFO.blocks.map(function (b, i) { return '<section class="info-b"><h4><i>' + String(i + 1).padStart(2, '0') + '</i>' + b[0] + '</h4><p>' + b[1] + '</p></section>'; }).join('') + '</div>';
+  }
   function open(k) {
     var it = items.filter(function (i) { return i.k === k; })[0] || {};
     document.getElementById('wurl').textContent = 'www.syndrome.com/' + k;
     document.getElementById('wn').textContent = '(' + (it.n == null ? '∞' : it.n) + ')';
     if (k === 'chat') chatView();
-    else if (k === 'seol') render('<h2>Seol</h2>', PST.about.replace(/<div class="feed-card playlist-card">[\s\S]*$/, ''), 'img/seol.jpg');
+    else if (k === 'seol') { document.getElementById('wurl').textContent = 'www.syndrome.com/info'; render('', infoView(), 'img/seol.jpg'); }
     else if (k === 'forever') render('<h2>Forever</h2><p class="sub">활을 끝까지 돌린 사람만 보는 페이지. 잠긴 기록 ' + lockN + '개.</p>', SYN.logList(true), null);
     else if (GROUPS[k]) groupView(k);
     else listView(k);
