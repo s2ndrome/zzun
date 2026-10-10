@@ -569,19 +569,28 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .pair-k { margin-bottom: 10px; }
 .wbody .back { margin-bottom: 10px; }
 /* seol info */
+.wbody .pic.wide { height: auto; aspect-ratio: 1984 / 832; }
+.wbody .pic.wide img { object-position: center 30%; filter: none; }
+.wbody .pic.wide::after { background: linear-gradient(transparent 78%, #fcfcfb); }
 .info { padding-bottom: 6px; }
 .info-tag { display: flex; justify-content: space-between; margin: 0 0 12px; font: 400 10px var(--mono); letter-spacing: .16em; color: var(--mid); }
 .info-tag span:last-child { color: var(--ink); letter-spacing: .08em; }
-.info-dl { display: grid; grid-template-columns: 84px 1fr; margin: 0 0 20px; border-top: 1px solid var(--ink); }
+.info-cols { border-top: 1px solid var(--ink); }
+.info-dl { display: grid; grid-template-columns: 64px 1fr; margin: 0; align-content: start; }
 .info-dl dt, .info-dl dd { margin: 0; padding: 9px 0; border-bottom: 1px solid var(--hair); }
 .info-dl dt { font: 400 10px/1.9 var(--mono); letter-spacing: .14em; color: var(--mid); }
 .info-dl dd { font: 400 13.5px/1.6 var(--ko); }
-.info-b { display: grid; grid-template-columns: 84px 1fr; padding: 12px 0; border-bottom: 1px solid var(--hair); }
-.info-b:last-child { border-bottom: 0; }
-.info-b h4 { margin: 0; font: 400 10px/1.9 var(--mono); letter-spacing: .14em; color: var(--ink); }
-.info-b h4 i { display: block; font-style: normal; color: var(--mid); }
-.info-b p { margin: 0; font: 300 13.5px/1.8 var(--ko); }
-@media (max-width: 520px) { .info-dl, .info-b { grid-template-columns: 64px 1fr; } }
+.info-bs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+.info-b { padding: 12px 0; border-bottom: 1px solid var(--hair); }
+.info-b h4 { display: flex; gap: 8px; margin: 0 0 6px; font: 400 10px/1.6 var(--mono); letter-spacing: .14em; color: var(--ink); }
+.info-b h4 i { font-style: normal; color: var(--mid); }
+.info-b p { margin: 0; font: 300 13px/1.75 var(--ko); }
+@media (min-width: 700px) {
+  .info-cols { display: grid; grid-template-columns: 1fr 1.45fr; gap: 0 28px; }
+  .info-dl { border-right: 0; }
+}
+@media (max-width: 699px) { .info-dl { margin-bottom: 8px; } }
+@media (max-width: 420px) { .info-bs { grid-template-columns: 1fr; } }
 /* chat with lia — the real AI chat (Cloudflare worker) embedded */
 .chat { display: flex; flex-direction: column; height: min(60vh, 520px); }
 .chat .who { display: flex; align-items: center; gap: 10px; padding: 0 0 12px; border-bottom: 1px solid var(--hair); }
@@ -785,15 +794,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   };
   function infoView() {
     return '<div class="info"><p class="info-tag"><span>' + INFO.tag + '</span><span>' + INFO.head + '</span></p>' +
-      '<dl class="info-dl">' + INFO.rows.map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>'; }).join('') + '</dl>' +
-      INFO.blocks.map(function (b, i) { return '<section class="info-b"><h4><i>' + String(i + 1).padStart(2, '0') + '</i>' + b[0] + '</h4><p>' + b[1] + '</p></section>'; }).join('') + '</div>';
+      '<div class="info-cols"><dl class="info-dl">' + INFO.rows.map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>'; }).join('') + '</dl>' +
+      '<div class="info-bs">' + INFO.blocks.map(function (b, i) { return '<section class="info-b"><h4><i>' + String(i + 1).padStart(2, '0') + '</i>' + b[0] + '</h4><p>' + b[1] + '</p></section>'; }).join('') + '</div></div></div>';
   }
   function open(k) {
     var it = items.filter(function (i) { return i.k === k; })[0] || {};
     document.getElementById('wurl').textContent = 'www.syndrome.com/' + k;
     document.getElementById('wn').textContent = '(' + (it.n == null ? '∞' : it.n) + ')';
     if (k === 'chat') chatView();
-    else if (k === 'seol') { document.getElementById('wurl').textContent = 'www.syndrome.com/info'; render('', infoView(), 'img/seol.jpg'); }
+    else if (k === 'seol') { document.getElementById('wurl').textContent = 'www.syndrome.com/info'; render('', infoView(), 'img/info.jpg'); txt.querySelector('.pic').classList.add('wide'); }
     else if (k === 'forever') render('<h2>Forever</h2><p class="sub">활을 끝까지 돌린 사람만 보는 페이지. 잠긴 기록 ' + lockN + '개.</p>', SYN.logList(true), null);
     else if (GROUPS[k]) groupView(k);
     else listView(k);
