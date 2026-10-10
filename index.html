@@ -587,6 +587,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .info-links i { font-style: normal; color: #86c4ee; }
 .info-links a:hover { color: #4f9ad0; }
 #wn { visibility: hidden; }
+/* character profile: drop the outer feed-card shell and its PROFILE / name header */
+.post.char .feed-card { border: 0 !important; background: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
+.post.char .feed-card > .card-header, .post.char .feed-card > h2 { display: none !important; }
+.post.char .markdown-body > div { border: 0 !important; border-radius: 0 !important; }
 @media (min-width: 700px) { .info { grid-template-columns: 200px 1fr; gap: 0 30px; } .info-links { grid-column: 1 / -1; margin-top: 18px; } }
 /* chat with lia — the real AI chat (Cloudflare worker) embedded */
 .chat { display: flex; flex-direction: column; height: min(60vh, 520px); }
@@ -751,6 +755,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       return;
     }
     render(head, wrap(cat, it, html), null);
+    if (cat === 'characters') txt.querySelector('.post').classList.add('char');
     document.getElementById('pback').onclick = go;
   }
   var GROUPS = {
