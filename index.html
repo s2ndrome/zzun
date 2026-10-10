@@ -581,14 +581,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .info-n b { font-weight: 500; color: #8ab9d8; }
 .info-n u { text-decoration: none; background: linear-gradient(transparent 82%, #c5ddec 82%); }
 .info-n .info-end { margin: 0; font-weight: 500; color: #9cc3dc; }
-.info-links { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--hair); }
-.info-links a { display: flex; align-items: baseline; gap: 10px; padding: 11px 2px; color: var(--ink); text-decoration: none; font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; transition: padding .3s, color .3s; }
-.info-links a + a { border-left: 1px solid var(--hair); padding-left: 14px; }
-.info-links small { font-size: 10px; letter-spacing: .04em; text-transform: none; color: var(--mid); }
-.info-links i { margin-left: auto; font-style: normal; color: #86c4ee; }
+.info-links { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; padding: 11px 0; border-top: 1px solid var(--ink); }
+.info-links a { display: inline-flex; align-items: baseline; gap: 6px; color: var(--ink); text-decoration: none; font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; transition: color .3s; }
+.info-links i { font-style: normal; color: #86c4ee; }
 .info-links a:hover { color: #4f9ad0; }
+#wn { visibility: hidden; }
 @media (min-width: 700px) { .info { grid-template-columns: 200px 1fr; gap: 0 30px; } .info-links { grid-column: 1 / -1; margin-top: 18px; } }
-@media (max-width: 420px) { .info-links small { display: none; } }
 /* chat with lia — the real AI chat (Cloudflare worker) embedded */
 .chat { display: flex; flex-direction: column; height: min(60vh, 520px); }
 .chat .who { display: flex; align-items: center; gap: 10px; padding: 0 0 12px; border-bottom: 1px solid var(--hair); }
@@ -796,7 +794,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     var sup = ['¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'];
     return '<div class="info"><section class="info-s"><h4>SEOL</h4><ol>' + INFO.seol.map(function (t, i) { return '<li><i>' + (sup[i] || i + 1) + '</i>' + t + '</li>'; }).join('') + '</ol></section>' +
       '<section class="info-n"><h4>NOTICE</h4>' + INFO.notice.map(function (t) { return '<p>' + t + '</p>'; }).join('') + (INFO.end ? '<p class="info-end">' + INFO.end + '</p>' : '') + '</section>' +
-      '<nav class="info-links">' + INFO.links.map(function (l) { return '<a href="' + l[1] + '" target="_blank" rel="noopener"><span>' + l[0] + '</span><small>' + l[1].replace(/^https?:\/\//, '').replace(/\/$/, '') + '</small><i>↗</i></a>'; }).join('') + '</nav></div>';
+      '<nav class="info-links">' + INFO.links.map(function (l) { return '<a href="' + l[1] + '" target="_blank" rel="noopener"><span>' + l[0] + '</span><i>↗</i></a>'; }).join('') + '</nav></div>';
   }
   function open(k) {
     var it = items.filter(function (i) { return i.k === k; })[0] || {};
