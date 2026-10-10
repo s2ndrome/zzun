@@ -692,9 +692,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         { id: items[0].id, img: items[0].thumb, file: 'FILE 01 / PYRE SENTINEL', code: 'SYNDROME', name: 'SEONGYUJIN', type: 'PYRE SENTINEL', age: '27', rank: 'S' },
         { id: items[1].id, img: items[1].thumb, file: 'FILE 02 / AQUA GUIDE', code: 'LIA', name: 'SEOLJISU', type: 'AQUA GUIDE', age: '21', rank: 'C > A' }
       ];
-      body = '<p class="pair-k">&gt; PAIR</p><div class="pair">' + PAIR.map(function (p) {
+      body = '<div class="pair">' + PAIR.map(function (p) {
         return '<button class="pc" data-id="' + p.id + '"><span class="pimg"><img src="' + p.img + '" alt="' + p.code + '"></span>' +
-          '<span class="pfile">' + p.file + '</span><b class="pcode">' + p.code + '</b><span class="pname">' + p.name + '</span>' +
+          '<b class="pcode">' + p.code + '</b><span class="pname">' + p.name + '</span>' +
           '<dl><dt>TYPE</dt><dd>' + p.type + '</dd><dt>AGE</dt><dd>' + p.age + '</dd><dt>RANK</dt><dd>' + p.rank + '</dd></dl>' +
           '<span class="pmore">프로필 열기 →</span></button>';
       }).join('') + '</div>';
