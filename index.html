@@ -526,6 +526,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .obj { width: 30vw; top: 52px; right: 10px; }
   .note { display: none; }
   .win { max-height: 82vh; }
+  .win.w-info { max-height: 66vh; }
   .wbody .in { padding: 0 20px; }
   .syn-list { columns: 1; } .syn-grid { columns: 2; }
   .wbody .meta { grid-template-columns: 1fr 1fr; }
@@ -581,7 +582,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .info-n b { font-weight: 500; color: #8ab9d8; }
 .info-n u { text-decoration: none; background: linear-gradient(transparent 82%, #c5ddec 82%); }
 .info-n .info-end { margin: 0; font-weight: 500; color: #9cc3dc; }
-.info-links { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; padding: 11px 0; border-top: 1px solid var(--ink); }
+.info-links { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; padding: 11px 0; }
 .info-links a { display: inline-flex; align-items: baseline; gap: 6px; color: var(--ink); text-decoration: none; font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; transition: color .3s; }
 .info-links i { font-style: normal; color: #86c4ee; }
 .info-links a:hover { color: #4f9ad0; }
@@ -800,6 +801,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     var it = items.filter(function (i) { return i.k === k; })[0] || {};
     document.getElementById('wurl').textContent = 'www.syndrome.com/' + k;
     document.getElementById('wn').textContent = '(' + (it.n == null ? '∞' : it.n) + ')';
+    win.classList.toggle('w-info', k === 'seol');
     if (k === 'chat') chatView();
     else if (k === 'seol') { document.getElementById('wurl').textContent = 'www.syndrome.com/info'; render('', infoView(), 'img/info.jpg'); txt.querySelector('.pic').classList.add('wide'); }
     else if (k === 'forever') render('<h2>Forever</h2><p class="sub">활을 끝까지 돌린 사람만 보는 페이지. 잠긴 기록 ' + lockN + '개.</p>', SYN.logList(true), null);
