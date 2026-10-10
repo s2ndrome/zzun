@@ -572,25 +572,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .wbody .pic.wide { height: auto; aspect-ratio: 1984 / 832; }
 .wbody .pic.wide img { object-position: center 30%; filter: none; }
 .wbody .pic.wide::after { background: linear-gradient(transparent 78%, #fcfcfb); }
-.info { padding-bottom: 6px; }
-.info-tag { display: flex; justify-content: space-between; margin: 0 0 12px; font: 400 10px var(--mono); letter-spacing: .16em; color: var(--mid); }
-.info-tag span:last-child { color: var(--ink); letter-spacing: .08em; }
-.info-cols { border-top: 1px solid var(--ink); }
-.info-dl { display: grid; grid-template-columns: 64px 1fr; margin: 0; align-content: start; }
-.info-dl dt, .info-dl dd { margin: 0; padding: 9px 0; border-bottom: 1px solid var(--hair); }
-.info-dl dt { font: 400 10px/1.9 var(--mono); letter-spacing: .14em; color: var(--mid); }
-.info-dl dd { font: 400 13.5px/1.6 var(--ko); }
-.info-bs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
-.info-b { padding: 12px 0; border-bottom: 1px solid var(--hair); }
-.info-b h4 { display: flex; gap: 8px; margin: 0 0 6px; font: 400 10px/1.6 var(--mono); letter-spacing: .14em; color: var(--ink); }
-.info-b h4 i { font-style: normal; color: var(--mid); }
-.info-b p { margin: 0; font: 300 13px/1.75 var(--ko); }
-@media (min-width: 700px) {
-  .info-cols { display: grid; grid-template-columns: 1fr 1.45fr; gap: 0 28px; }
-  .info-dl { border-right: 0; }
-}
-@media (max-width: 699px) { .info-dl { margin-bottom: 8px; } }
-@media (max-width: 420px) { .info-bs { grid-template-columns: 1fr; } }
+.info { display: grid; gap: 22px; padding: 4px 0 6px; }
+.info h4 { margin: 0 0 10px; font: 700 11px/1 var(--sans); letter-spacing: .04em; color: #9cc3dc; }
+.info ol { list-style: none; margin: 0; padding: 0; }
+.info li { font: 400 12.5px/1.85 var(--ko); color: #3a3d44; padding-left: 12px; text-indent: -12px; word-break: keep-all; }
+.info li i { font-style: normal; display: inline-block; width: 12px; color: var(--mid); }
+.info-n p { margin: 0 0 12px; font: 400 12px/1.85 var(--ko); color: #3a3d44; word-break: keep-all; }
+.info-n b { font-weight: 500; color: #8ab9d8; }
+.info-n u { text-decoration: none; background: linear-gradient(transparent 82%, #c5ddec 82%); }
+.info-n .info-end { margin: 0; font-weight: 500; color: #9cc3dc; }
+@media (min-width: 700px) { .info { grid-template-columns: 200px 1fr; gap: 0 30px; } }
 /* chat with lia — the real AI chat (Cloudflare worker) embedded */
 .chat { display: flex; flex-direction: column; height: min(60vh, 520px); }
 .chat .who { display: flex; align-items: center; gap: 10px; padding: 0 0 12px; border-bottom: 1px solid var(--hair); }
@@ -774,28 +765,26 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     render('', '<div class="chat"><div class="who">' + (img ? '<img src="' + img + '" alt="">' : '') + '<div><b>Lia</b><small>SEOLJISU · AQUA GUIDE</small></div></div><iframe src="' + LIA_URL + '" title="리아와 채팅"></iframe></div>', null);
   }
   // ======== Seol → INFO ========
-  // 여기 내용만 고치면 info 창에 그대로 나와요. 줄바꿈은 <br>로 쓰면 돼요.
+  // 여기 글만 고치면 info 창에 그대로 나와요.
+  // <b>…</b> = 하늘색 강조, <u>…</u> = 밑줄 강조, <br> = 줄바꿈
   var INFO = {
-    tag: 'SEOL',
-    head: 'ARCH SYNDROME ♡',
-    rows: [
-      ['NAME', 'SEOL'],
-      ['STYLE', 'ONLY · 동담불가'],
-      ['TL', '메인 기준 최대 1T2D'],
-      ['AGE', '여기에 적어주세요'],
-      ['SINCE', '여기에 적어주세요']
+    seol: [
+      'ARCH SYNDROME',
+      'ONLY 및 동담불가 성향',
+      '메인 기준 최대 1T2D 유지',
+      '상호 직멘 및 유입 배려 가능할 시에만 연결 OK'
     ],
-    blocks: [
-      ['ABOUT', '자기소개를 여기에 적어주세요.'],
-      ['PLEASE', '상호 직멘 및 유입까지 배려 원해요.'],
-      ['NO', '지뢰나 피해줬으면 하는 것을 여기에 적어주세요.'],
-      ['CONTACT', '연락 방법을 여기에 적어주세요.']
-    ]
+    notice: [
+      '기본적으로 <b>모럴리스 및 오니로리, 근친, 성인미자, DV, 도짓코아방수 등등</b> 취향타는 소재들 많이 좋아하며 언급 많아요. 제 취향이 듬뿍 담긴 계정인 만큼 위 언급된 소재 관련 예민하신 분이라면 연결 지양해 주세요. 서로 즐거운 채팅 나누길 바라요.',
+      '제 편의를 위해 배려 리스트에 기재된 캐릭터가 아니라면 메인 기준 최대 한 탐라 2D 두어요. 친분 상관없이 서브는 일절 배려 않아요. <u>상호 1T1D 바라신다면 편히 요청 주세요!</u>',
+      '전체적으로 예민한 사람은 아니기에, 알아서 잘 피하는 편입니다. 다만 타임라인 내 특정 인물을 저격하거나 수동 공격하는 게시물을 보면 피로감을 크게 느껴 정리하는 편입니다. 성향 맞지 않을 경우 저 또한 편히 정리해 주세요.'
+    ],
+    end: '여러모로 저랑 트친해 주셔서 감사합니다 ꒰ ˊ ᵕ ˋ ꒱'
   };
   function infoView() {
-    return '<div class="info"><p class="info-tag"><span>' + INFO.tag + '</span><span>' + INFO.head + '</span></p>' +
-      '<div class="info-cols"><dl class="info-dl">' + INFO.rows.map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>'; }).join('') + '</dl>' +
-      '<div class="info-bs">' + INFO.blocks.map(function (b, i) { return '<section class="info-b"><h4><i>' + String(i + 1).padStart(2, '0') + '</i>' + b[0] + '</h4><p>' + b[1] + '</p></section>'; }).join('') + '</div></div></div>';
+    var sup = ['¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'];
+    return '<div class="info"><section class="info-s"><h4>SEOL</h4><ol>' + INFO.seol.map(function (t, i) { return '<li><i>' + (sup[i] || i + 1) + '</i>' + t + '</li>'; }).join('') + '</ol></section>' +
+      '<section class="info-n"><h4>NOTICE</h4>' + INFO.notice.map(function (t) { return '<p>' + t + '</p>'; }).join('') + (INFO.end ? '<p class="info-end">' + INFO.end + '</p>' : '') + '</section></div>';
   }
   function open(k) {
     var it = items.filter(function (i) { return i.k === k; })[0] || {};
